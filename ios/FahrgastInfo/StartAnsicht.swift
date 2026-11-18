@@ -64,6 +64,8 @@ private struct Kopf: View {
                     .font(.title3.weight(.heavy))
                 Text("BSB Bodensee · Störungen & Betriebsinfos")
                     .font(.footnote)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
                     .opacity(0.85)
             }
             .foregroundStyle(.white)
