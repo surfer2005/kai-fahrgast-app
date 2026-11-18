@@ -1,0 +1,42 @@
+# iPhone-App bauen, prüfen und im Simulator fotografieren — ohne Apple-Konto (Simulator braucht keine Signatur).
+name: iOS
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  bauen:
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Xcode
+        run: |
+          X=$(ls -d /Applications/Xcode_16*.app 2>/dev/null | sort -V | tail -1)
+          if [ -n "$X" ]; then sudo xcode-select -s "$X"; fi
+          xcodebuild -version
+      - name: Projekt erzeugen (XcodeGen)
+        run: |
+          brew install xcodegen
+          cd ios && xcodegen generate
+      - name: Simulator wählen
+        id: sim
+        run: echo "udid=$(python3 ios/werkzeuge/simulator-waehlen.py)" >> "$GITHUB_OUTPUT"
+      - name: Bauen und prüfen
+        run: |
+          set -o pipefail
+          cd ios
+          xcodebuild -project FahrgastInfo.xcodeproj -scheme FahrgastInfo -configuration Debug \
+            -destination "id=${{ steps.sim.outputs.udid }}" -derivedDataPath ../bau \
+            CODE_SIGNING_ALLOWED=NO test 2>&1 | tee ../xcodebuild.log | grep -E "error:|warning: .*FahrgastInfo|Test Case|Executed|\*\* (TEST|BUILD)" || true
+          grep -q "\*\* TEST SUCCEEDED \*\*" ../xcodebuild.log
+      - name: Bildschirmfotos
+        run: ios/werkzeuge/bildschirmfotos.sh "${{ steps.sim.outputs.udid }}" bau/Build/Products/Debug-iphonesimulator/FahrgastInfo.app bildschirmfotos
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bildschirmfotos
+          path: |
+            bildschirmfotos/
+            xcodebuild.log
+          if-no-files-found: warn
