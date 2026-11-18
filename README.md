@@ -22,6 +22,18 @@ GitHub baut bei jedem Hochladen auf `main` (`.github/workflows/ios.yml`): Projek
 (`ios/werkzeuge/bildschirmfotos.sh`, Vorführdaten mit `-demo stoerung|leer`, einmal echt gegen KAI-Test). Die Fotos liegen
 am Lauf als Anhang „bildschirmfotos“.
 
+## Selbst ausprobieren auf dem Mac (kostenlos)
+
+1. Xcode aus dem Mac App Store installieren (kostenlos; beim ersten Start die iOS-Plattform mitladen).
+2. Bei GitHub am letzten Lauf (Actions → iOS) den Anhang **FahrgastInfo-Xcode** herunterladen und entpacken.
+3. `FahrgastInfo.xcodeproj` doppelklicken, oben als Ziel einen iPhone-Simulator wählen (z. B. „iPhone 16“), ▶ drücken.
+   Kein Apple-Konto, kein Kabel, keine 7-Tage-Grenze.
+4. Mitteilung ausprobieren: in der App „Mitteilungen aktivieren“ → erlauben, dann `test-mitteilung.apns` auf das
+   Simulator-Fenster ziehen. (Eine echte Anmeldung bei Apple geht im Simulator ohne Entwicklerkonto nicht — die App meldet das.)
+
+Auf dem eigenen iPhone ohne Entwicklerkonto: mit kostenloser Apple-ID über Xcode (Kabel, Entwicklermodus am iPhone),
+läuft dann 7 Tage und ohne Mitteilungen. Mit Mitteilungen nur mit Apple-Entwicklerprogramm (TestFlight).
+
 ## Nächste Schritte
 
 2. Auf dem eigenen iPhone über TestFlight: Apple-Entwicklerprogramm, Signatur und Hochladen durch GitHub,

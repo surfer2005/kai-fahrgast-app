@@ -35,7 +35,7 @@ jobs:
       - name: Xcode-Projekt zum Herunterladen (für den Weg über Xcode auf dem eigenen Mac)
         run: |
           mkdir -p FahrgastInfo-Xcode
-          cp -R ios/FahrgastInfo ios/FahrgastInfoTests ios/FahrgastInfo.xcodeproj ios/project.yml FahrgastInfo-Xcode/
+          cp -R ios/FahrgastInfo ios/FahrgastInfoTests ios/FahrgastInfo.xcodeproj ios/project.yml ios/werkzeuge/test-mitteilung.apns FahrgastInfo-Xcode/
           rm -rf FahrgastInfo-Xcode/FahrgastInfo.xcodeproj/xcuserdata FahrgastInfo-Xcode/FahrgastInfo.xcodeproj/project.xcworkspace/xcuserdata
       - uses: actions/upload-artifact@v4
         with:

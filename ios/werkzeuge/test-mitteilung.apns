@@ -1,0 +1,11 @@
+{
+  "Simulator Target Bundle": "de.kaibsb.fahrgastinfo",
+  "aps": {
+    "alert": {
+      "title": "Fähre Friedrichshafen – Romanshorn: Kursschiff statt Fähre",
+      "body": "Die Fähre der BSB fällt aus. Ihre Fahrten fahren als Personenersatzverkehr mit einem Kursschiff, in Friedrichshafen ab Platz 2."
+    },
+    "sound": "default"
+  },
+  "meldung_id": 0
+}
