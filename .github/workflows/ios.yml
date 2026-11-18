@@ -32,6 +32,15 @@ jobs:
           grep -q "\*\* TEST SUCCEEDED \*\*" ../xcodebuild.log
       - name: Bildschirmfotos
         run: ios/werkzeuge/bildschirmfotos.sh "${{ steps.sim.outputs.udid }}" bau/Build/Products/Debug-iphonesimulator/FahrgastInfo.app bildschirmfotos
+      - name: Xcode-Projekt zum Herunterladen (für den Weg über Xcode auf dem eigenen Mac)
+        run: |
+          mkdir -p FahrgastInfo-Xcode
+          cp -R ios/FahrgastInfo ios/FahrgastInfoTests ios/FahrgastInfo.xcodeproj ios/project.yml FahrgastInfo-Xcode/
+          rm -rf FahrgastInfo-Xcode/FahrgastInfo.xcodeproj/xcuserdata FahrgastInfo-Xcode/FahrgastInfo.xcodeproj/project.xcworkspace/xcuserdata
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FahrgastInfo-Xcode
+          path: FahrgastInfo-Xcode/
       - uses: actions/upload-artifact@v4
         if: always()
         with:
